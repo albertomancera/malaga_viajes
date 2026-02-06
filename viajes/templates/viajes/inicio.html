@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Málaga CF | Gestión de Viajes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+
+    <style>
+      /* Estilos Pro Propios */
+      :root {
+        --malaga-blue: #0054a6;
+        --malaga-dark: #003870;
+        --accent: #00a8e8;
+      }
+
+      body {
+        background-color: #f0f2f5;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      /* Navbar */
+      .navbar {
+        background-color: var(--malaga-dark) !important;
+        border-bottom: 4px solid var(--accent);
+      }
+      .navbar-brand {
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: white !important;
+      }
+
+      /* Hero Section Impactante */
+      .hero {
+        background:
+          linear-gradient(rgba(0, 56, 112, 0.8), rgba(0, 84, 166, 0.6)),
+          url("https://upload.wikimedia.org/wikipedia/commons/e/e4/La_Rosaleda_Stadium.jpg")
+            center/cover;
+        height: 450px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+      }
+      .hero h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin: 0;
+      }
+      .hero p {
+        font-size: 1.5rem;
+        font-weight: 300;
+      }
+
+      /* Tarjetas de Viaje */
+      .contenedor-viajes {
+        margin-top: -50px;
+      }
+      .card-viaje {
+        border: none;
+        border-radius: 15px;
+        background: white;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .card-viaje:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-header-custom {
+        background-color: var(--malaga-blue);
+        color: white;
+        border-radius: 15px 15px 0 0 !important;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .btn-inscribirse {
+        background: var(--malaga-blue);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 30px;
+        font-weight: bold;
+        width: 100%;
+        transition: 0.3s;
+      }
+      .btn-inscribirse:hover {
+        background: var(--accent);
+        color: white;
+      }
+
+      .precio-grande {
+        font-size: 2rem;
+        color: var(--malaga-blue);
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="#">💙 MALAGUISTAS VIAJEROS</a>
+        <a href="/admin" class="btn btn-outline-light btn-sm">Panel Control</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="container">
+        <h1>¡Vamos Málaga!</h1>
+        <p>Acompaña al equipo en todos los desplazamientos</p>
+      </div>
+    </header>
+
+    <main class="container contenedor-viajes">
+      <div class="row">
+        {% for viaje in viajes %}
+        <div class="col-md-4 mb-4">
+          <div class="card-viaje">
+            <div class="card-header-custom">
+              <h2 class="h4 m-0 text-uppercase">{{ viaje.destino }}</h2>
+            </div>
+            <div class="card-body p-4">
+              <div class="mb-3 d-flex justify-content-between">
+                <span
+                  ><strong>Fecha:</strong> {{ viaje.fecha_partido|date:"d/m/Y"}}</span
+                >
+                <span
+                  ><strong>Hora:</strong> {{ viaje.fecha_partido|date:"H:i"}}</span
+                >
+              </div>
+              <p class="text-muted">
+                {{ viaje.descripcion|truncatechars:100 }}
+              </p>
+              <hr />
+              <div class="mb-3">
+            <small class="text-muted d-block text-center">
+                {% with plazas_libres=viaje.plazas_totales|add:"-0" %}
+                    {% if viaje.inscripciones.count >= viaje.plazas_totales %}
+                        <span class="badge bg-danger">¡BUS COMPLETO!</span>
+                    {% else %}
+                        <span class="badge bg-success">Quedan {{ viaje.plazas_totales|add:"-viaje.inscripciones.count" }} plazas</span>
+                    {% endif %}
+                {% endwith %}
+    </small>
+</div>
+              <div class="text-center mb-3">
+                <span class="text-muted d-block">Precio por persona</span>
+                <span class="precio-grande">{{ viaje.precio }}€</span>
+              </div>
+              <a
+                href="{% url 'inscribirse' viaje.id %}"
+                class="btn btn-inscribirse"
+                >RESERVAR MI PLAZA</a
+              >
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+          <div class="alert alert-info text-center shadow-sm">
+            <h4>No hay viajes disponibles hoy</h4>
+            <p>Vuelve pronto o contacta con la administración.</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </main>
+
+    <footer class="py-5 text-center mt-5">
+      <p class="text-muted small">
+        © 2026 Plataforma de Gestión de Viajes - Orgullo Blanquiazul
+      </p>
+    </footer>
+  </body>
+</html>

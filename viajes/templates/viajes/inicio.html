@@ -1,163 +1,247 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" data-theme="light">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Málaga CF | Travel</title>
-    <link rel="icon" type="image/png" href="{% static 'Malaga_CF.png' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
+    <link rel="icon" type="image/png" href="{% static 'Malaga_CF.png' %}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <div class="top-notice">
+      ⚠️ ¡Buses casi llenos! Asegura tu plaza y ruge con nosotros fuera de La
+      Rosaleda.
+    </div>
 
-<div class="top-notice">
-     ¡Acompaña al Málaga CF en su próximo destino! Plazas limitadas.
-</div>
-
-<nav class="navbar navbar-expand-lg navbar-dark navbar-mcf sticky-top">
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-mcf sticky-top">
+      <div class="container">
         <a class="navbar-brand fw-bold" href="#">
-            <img src="{% static 'Malaga_CF.png' %}" width="35" class="me-2"> MÁLAGA VIAJES
+          <img src="{% static 'Malaga_CF.png' %}" width="35" class="me-2" />
+          MÁLAGA VIAJES
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="#viajes">Viajes</a></li>
-                <li class="nav-item"><a class="nav-link" href="#faq">Preguntas</a></li>
-                <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-sm btn-outline-light rounded-pill px-3 ms-lg-3" href="{% url 'mis_reservas' %}">Mis Reservas</a>
-                </li>
-                
-                <li class="nav-item d-flex align-items-center ms-3">
-                    <span style="font-size: 1.2rem;">🌓</span>
-                    <label class="theme-switch">
-                        <input type="checkbox" id="dark-mode-toggle">
-                        <span class="slider"></span>
-                    </label>
-                </li>
-            </ul>
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#viajes">Viajes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#faq">Preguntas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#galeria">Galería</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link btn btn-sm btn-outline-light rounded-pill px-3 ms-lg-3"
+                href="{% url 'mis_reservas' %}"
+                >Mis Reservas</a
+              >
+            </li>
+
+            <li class="nav-item d-flex align-items-center ms-3">
+              <span style="font-size: 1.2rem">🌓</span>
+              <label class="theme-switch">
+                <input type="checkbox" id="dark-mode-toggle" />
+                <span class="slider"></span>
+              </label>
+            </li>
+          </ul>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<div class="container mt-5">
-    
-    <div id="viajes" class="text-center mb-5">
-        <h2 class="fw-bold">PRÓXIMOS DESPLAZAMIENTOS</h2>
+    <div class="container mt-5">
+      <div id="viajes" class="text-center mb-5">
+        <h2 class="fw-bold">NUESTRA PRÓXIMA BATALLA</h2>
         <p class="text-muted fw-bold">ENCUENTRA TU VIAJE</p>
-    </div>
+      </div>
 
-    <div class="row g-4 justify-content-center">
+      <div class="row g-4 justify-content-center">
         {% for viaje in viajes %}
         <div class="col-md-6 col-lg-4">
-            <div class="white-card">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div class="text-center">
-                        <img src="{% get_static_prefix %}{{ viaje.destino }}.png" width="60" height="60" style="object-fit: contain;">
-                        <div class="fw-bold mt-2 small">{{ viaje.destino }}</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="match-time">{{ viaje.fecha_partido|date:"H:i" }}</div>
-                        <div class="small text-muted fw-bold">{{ viaje.fecha_partido|date:"d M" }}</div>
-                    </div>
-                    <div class="text-center">
-                        <img src="{% static 'Malaga_CF.png' %}" width="60" height="60" style="object-fit: contain;">
-                        <div class="fw-bold mt-2 small">Málaga CF</div>
-                    </div>
+          <div class="white-card">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <div class="text-center">
+                <img
+                  src="{% get_static_prefix %}{{ viaje.destino }}.png"
+                  width="60"
+                  height="60"
+                  style="object-fit: contain" />
+                <div class="fw-bold mt-2 small">{{ viaje.destino }}</div>
+              </div>
+              <div class="text-center">
+                <div class="match-time">
+                  {{ viaje.fecha_partido|date:"H:i" }}
                 </div>
-
-                <div class="plazas-container mb-4">
-                    <div class="d-flex justify-content-between small fw-bold mb-1">
-                        <span>Ocupación Bus</span>
-                        <span class="{% if viaje.plazas_libres == 0 %}text-danger{% endif %}">
-                            {% if viaje.plazas_libres > 0 %}{{ viaje.plazas_libres }} plazas{% else %}COMPLETO{% endif %}
-                        </span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="--ancho: {{ viaje.porcentaje_llenado }}%; width: var(--ancho);"></div>
-                    </div>
+                <div class="small text-muted fw-bold">
+                  {{ viaje.fecha_partido|date:"d M" }}
                 </div>
-
-                <div class="d-flex gap-2 justify-content-center pt-3 border-top">
-                    <span class="btn btn-light rounded-pill fw-bold px-3">{{ viaje.precio }}€</span>
-                    
-                    {% if viaje.plazas_libres > 0 %}
-                        <a href="{% url 'inscribirse' viaje.id %}" class="btn btn-primary rounded-pill px-4 fw-bold" 
-                           style="background-color: var(--mcf-blue); border: none;">Reservar</a>
-                    {% else %}
-                        <button class="btn btn-secondary rounded-pill px-4 fw-bold btn-disabled" disabled>Agotado</button>
-                    {% endif %}
-                </div>
+              </div>
+              <div class="text-center">
+                <img
+                  src="{% static 'Malaga_CF.png' %}"
+                  width="60"
+                  height="60"
+                  style="object-fit: contain" />
+                <div class="fw-bold mt-2 small">Málaga CF</div>
+              </div>
             </div>
+
+            <div class="plazas-container mb-4">
+  <div class="d-flex justify-content-between small fw-bold mb-1">
+        <span>Grado de Ocupación Malaguista</span>
+        <span class="{% if viaje.plazas_libres == 0 %}text-danger{% endif %}">
+            {% if viaje.plazas_libres == 0 %}
+                ¡DESEMBARCO CONFIRMADO! 0 plazas
+            {% elif viaje.plazas_libres < 10 %}
+                ¡CORRE! Solo {{ viaje.plazas_libres }} locos por estos colores
+            {% else %}
+                {{ viaje.plazas_libres }} asientos disponibles
+            {% endif %}
+        </span>
+    </div>
+   
+            </div>
+              <div class="previa-info small text-start p-3 mb-4">
+                    <div class="mb-1">📍 <strong>Salida:</strong> Explanada de La Rosaleda</div>
+                    <div>🧣 <strong>Imprescindible:</strong> Bufanda blanquiazul</div>
+                </div>
+
+            <div class="d-flex gap-2 justify-content-center pt-3 border-top">
+              <span class="btn btn-light rounded-pill fw-bold px-3"
+                >{{ viaje.precio }}€</span
+              >
+
+              {% if viaje.plazas_libres > 0 %}
+              <a
+                href="{% url 'inscribirse' viaje.id %}"
+                class="btn btn-primary rounded-pill px-4 fw-bold"
+                style="background-color: var(--mcf-blue); border: none"
+                >Reservar</a
+              >
+              {% else %}
+              <button
+                class="btn btn-secondary rounded-pill px-4 fw-bold btn-disabled"
+                disabled>
+                Agotado
+              </button>
+              {% endif %}
+            </div>
+          </div>
         </div>
         {% endfor %}
-    </div>
+      </div>
 
-    <div id="faq" class="py-5 mt-5">
+      <div id="faq" class="py-5 mt-5">
         <h3 class="fw-bold text-center mb-4">Preguntas Frecuentes</h3>
-        <div class="accordion mx-auto" id="faqAccordion" style="max-width: 800px;">
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
-                        ¿Qué incluye el viaje?
-                    </button>
-                </h2>
-                <div id="q1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">
-                        Incluye el traslado en autobús oficial de ida y vuelta y la entrada al estadio en la zona de afición visitante.
-                    </div>
-                </div>
+        <div
+          class="accordion mx-auto"
+          id="faqAccordion"
+          style="max-width: 800px">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#q1">
+                ¿Qué incluye el viaje?
+              </button>
+            </h2>
+            <div
+              id="q1"
+              class="accordion-collapse collapse"
+              data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Tu entrada y tu asiento en el bus. Tú solo trae la bufanda y la
+                garganta lista.
+              </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
-                        ¿Puedo cancelar mi reserva?
-                    </button>
-                </h2>
-                <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">
-                        Las cancelaciones se permiten hasta 72 horas antes del viaje. Gestiona tus billetes desde el menú "Mis Reservas".
-                    </div>
-                </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#q2">
+                ¿Puedo cancelar mi reserva?
+              </button>
+            </h2>
+            <div
+              id="q2"
+              class="accordion-collapse collapse"
+              data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Si surge un imprevisto, te ayudamos a gestionar la baja hasta
+                72h antes. ¡La familia malaguista se cuida!
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+
+      <div id="galeria" class="row mt-5">
+        <div class="col-12 text-center mb-4">
+          <h2 class="fw-bold">PORQUE NUNCA JUGARÉIS SOLOS</h2>
+        </div>
+        <div class="col-md-4 mb-4">
+          <img
+            src="{% static 'desplazamiento.jpeg' %}"
+            class="img-fluid rounded-4 shadow-sm"
+            alt="Fans" />
+        </div>
+        <div class="col-md-4 mb-4">
+          <img
+            src="{% static 'desplazamiento1.jpeg' %}"
+            class="img-fluid rounded-4 shadow-sm"
+            style="filter: grayscale(0.5)"
+            alt="Estadio" />
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <img
+            src="{% static 'desplazamiento2.jpg' %}"
+            class="img-fluid rounded-4 shadow-sm"
+            style="filter: grayscale(0.5)"
+            alt="Estadio" />
+        </div>
+      </div>
     </div>
 
-    <div id="galeria" class="row mt-5">
-        <div class="col-12 text-center mb-4"><h2 class="fw-bold">📸 GALERÍA</h2></div>
-        <div class="col-md-4 mb-4"><img src="{% static 'larosaleda.jpg' %}" class="img-fluid rounded-4 shadow-sm" alt="Fans"></div>
-        <div class="col-md-4 mb-4"><img src="{% static 'larosaleda.jpg' %}" class="img-fluid rounded-4 shadow-sm" style="filter: grayscale(0.5)" alt="Estadio"></div>
-        <div class="col-md-4 mb-4"><img src="{% static 'larosaleda.jpg' %}" class="img-fluid rounded-4 shadow-sm" alt="Viaje"></div>
-    </div>
-</div>
+    <footer class="text-center py-5 mt-5 text-muted small border-top">
+      © 2026 Málaga CF Viajes Oficiales | Orgullo Malaguista
+    </footer>
 
-<footer class="text-center py-5 mt-5 text-muted small border-top">
-    © 2026 Málaga CF Viajes Oficiales | Orgullo Malaguista
-</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const checkbox = document.getElementById("dark-mode-toggle");
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    const checkbox = document.getElementById('dark-mode-toggle');
-    
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
+      if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
         checkbox.checked = true;
-    }
+      }
 
-    checkbox.addEventListener('change', function() {
+      checkbox.addEventListener("change", function () {
         if (this.checked) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
         } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
+          document.documentElement.setAttribute("data-theme", "light");
+          localStorage.setItem("theme", "light");
         }
-    });
-</script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>

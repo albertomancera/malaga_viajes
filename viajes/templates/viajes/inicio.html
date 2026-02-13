@@ -191,34 +191,24 @@
           </div>
         </div>
       </div>
-
-      <div id="galeria" class="row mt-5">
-        <div class="col-12 text-center mb-4">
-          <h2 class="fw-bold">PORQUE NUNCA JUGARÉIS SOLOS</h2>
-        </div>
-        <div class="col-md-4 mb-4">
-          <img
-            src="{% static 'desplazamiento.jpeg' %}"
-            class="img-fluid rounded-4 shadow-sm"
-            alt="Fans" />
-        </div>
-        <div class="col-md-4 mb-4">
-          <img
-            src="{% static 'desplazamiento1.jpeg' %}"
-            class="img-fluid rounded-4 shadow-sm"
-            style="filter: grayscale(0.5)"
-            alt="Estadio" />
-        </div>
-
-        <div class="col-md-4 mb-4">
-          <img
-            src="{% static 'desplazamiento2.jpg' %}"
-            class="img-fluid rounded-4 shadow-sm"
-            style="filter: grayscale(0.5)"
-            alt="Estadio" />
-        </div>
-      </div>
+    <div id="galeria" class="py-5">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">📸 PORQUE NUNCA JUGARÉIS SOLOS</h2>
+        <p class="text-muted">NUESTROS ÚLTIMOS DESPLAZAMIENTOS</p>
     </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <img src="{% static 'desplazamiento.jpeg' %}" class="gallery-item" alt="Afición 1">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'desplazamiento1.jpeg' %}" class="gallery-item" alt="Afición 2">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'desplazamiento2.jpg' %}" class="gallery-item" alt="Afición 3">
+        </div>
+    </div>
+</div>
 
     <footer class="text-center py-5 mt-5 text-muted small border-top">
       © 2026 Málaga CF Viajes Oficiales | Orgullo Malaguista

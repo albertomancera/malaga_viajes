@@ -9,7 +9,7 @@ class Viaje(models.Model):
     plazas_totales = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"Viaje a {self.destino}"
+        return f"{self.destino} ({self.fecha_partido.strftime('%d/%m/%Y')})"
 
 class Inscripcion(models.Model):
     viaje = models.ForeignKey(Viaje, on_delete=models.CASCADE, related_name='inscripciones')

@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Reservas | Málaga CF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-dark navbar-mcf">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'inicio' %}">
+            <img src="{% static 'Malaga_CF.png' %}" width="30" class="me-2 align-text-top">
+            MÁLAGA CF | TRAVEL
+        </a>
+        <div class="ms-auto">
+            <span class="text-white small me-3 opacity-75 d-none d-md-inline">Hola, {{ user.username }}</span>
+            <a href="{% url 'inicio' %}" class="btn btn-sm btn-outline-light rounded-pill px-3">Volver al Inicio</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container pb-5">
+    
+    <div class="page-header">
+        <h2>Mis Viajes Reservados 🎫</h2>
+        <p class="text-muted">Gestiona tus billetes para los próximos desplazamientos.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            
+            {% for reserva in reservas %}
+            <div class="ticket-card">
+                <div class="ticket-header">
+                    <span>LALIGA HYPERMOTION</span>
+                    <span>TICKET OFICIAL #{{ reserva.id }}</span>
+                </div>
+
+                <div class="ticket-body">
+                    
+                    <div class="match-section">
+                        <div class="teams-display">
+                            <img src="{% get_static_prefix %}{{ reserva.viaje.destino }}.png" 
+                                 class="team-logo" >
+                            
+                            <span class="vs-badge">VS</span>
+                            
+                            <img src="{% static 'Malaga_CF.png' %}" class="team-logo">
+                        </div>
+                        
+                        <div class="match-details">
+                            <h4>{{ reserva.viaje.destino }}</h4>
+                            <div class="match-date">
+                                📅 {{ reserva.viaje.fecha_partido|date:"l d M, Y" }}
+                                <span class="ms-2">⏰ {{ reserva.viaje.fecha_partido|date:"H:i" }}h</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="passenger-section">
+                        <span class="label-ticket">Pasajero</span>
+                        <span class="value-ticket">{{ reserva.nombre_completo }}</span>
+                        
+                        <span class="label-ticket">Documento / DNI</span>
+                        <span class="value-ticket">{{ reserva.dni }}</span>
+                    </div>
+
+                    <div class="action-section">
+                        <span class="d-block mb-2 text-muted small">Registrado: {{ reserva.fecha_registro|date:"d/m/Y" }}</span>
+                       <a href="{% url 'cancelar_reserva' reserva.id %}" class="btn-cancel">
+                            ✕ Anular Plaza
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center py-5">
+                <div style="font-size: 3rem; margin-bottom: 20px;">🏟️</div>
+                <h4 class="fw-bold text-muted">Aún no tienes reservas activas</h4>
+                <p class="mb-4">¡Anímate a acompañar al equipo en el próximo partido!</p>
+                <a href="{% url 'inicio' %}" class="btn btn-primary rounded-pill px-4" style="background-color: var(--mcf-blue);">Ver Próximos Viajes</a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

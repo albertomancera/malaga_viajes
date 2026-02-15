@@ -2,21 +2,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <title>Reserva Exitosa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-<body class="bg-light">
-<div class="container py-5 text-center">
-    <div class="card p-5 shadow-lg mx-auto" style="max-width: 500px; border-top: 8px solid #002B5C;">
-        <div class="display-1 text-success mb-4">✅</div>
-        <h2 class="fw-bold" style="color: #002B5C;">¡RESERVA REALIZADA!</h2>
-        <p class="lead text-muted">Tu plaza para el desplazamiento a <strong>{{ viaje.destino }}</strong> ha sido confirmada.</p>
-        <hr>
-        <div class="d-grid gap-2">
-            <a href="{% url 'mis_reservas' %}" class="btn btn-dark p-3 fw-bold" style="background-color: #002B5C;">VER MIS VIAJES</a>
-            <a href="{% url 'inicio' %}" class="btn btn-outline-secondary">VOLVER AL INICIO</a>
+<body class="bg-light centered-page">
+    <div class="container py-5 text-center">
+        <div class="card p-5 shadow-lg mx-auto" style="max-width: 500px; border-top: 8px solid #002B5C;">
+            <div class="display-1 text-success mb-4">✅</div>
+            <h2 class="fw-bold" style="color: #002B5C;">¡RESERVA REALIZADA!</h2>
+            <p class="lead text-muted">Tu plaza para el desplazamiento a <strong>{{ viaje.destino }}</strong> ha sido confirmada.</p>
+            <hr>
+            <div class="d-grid gap-2">
+                <a href="{% url 'mis_reservas' %}" class="btn btn-dark p-3 fw-bold" style="background-color: #002B5C;">VER MIS VIAJES</a>
+                <a href="{% url 'inicio' %}" class="btn btn-outline-secondary">VOLVER AL INICIO</a>
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>

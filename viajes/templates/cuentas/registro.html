@@ -1,55 +1,97 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <title>Registro - Málaga Viajes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Únete a la Familia | Málaga CF</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}?v=3.0">
+    <link rel="icon" type="image/png" href="{% static 'Malaga_CF.png' %}" />
 </head>
-<body class="auth-page">
+<body>
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card shadow-lg border-0 rounded-4 p-3">
-                <div class="card-body p-4">
-                    <div class="text-center mb-4">
-                        <div class="display-4 mb-2">⚽</div>
-                        <h3 class="fw-bold" style="color: #002B5C;">CREAR CUENTA</h3>
-                        <p class="text-muted small">Únete para reservar tus viajes</p>
-                    </div>
-
-                    <form method="post">
-                        {% csrf_token %}
-                        {% for field in form %}
-                            <div class="mb-3">
-                                <label class="form-label fw-bold small text-muted">{{ field.label }}</label>
-                                {{ field }}
-                                {% if field.help_text %}
-                                    <div class="form-text small" style="font-size: 0.8em;">{{ field.help_text }}</div>
-                                {% endif %}
-                                {% for error in field.errors %}
-                                    <div class="text-danger small">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                        
-                        <button type="submit" class="btn btn-malaga w-100 py-3 mt-3 fw-bold">REGISTRARME 💙</button>
-                    </form>
-
-                    <div class="text-center mt-4 pt-3 border-top">
-                        <a href="{% url 'login' %}" class="text-decoration-none text-muted small">
-                            ¿Ya tienes cuenta? <strong class="text-primary">Inicia Sesión aquí</strong>
-                        </a>
-                        <br>
-                        <a href="{% url 'inicio' %}" class="text-decoration-none text-muted small mt-2 d-inline-block">Volver al Inicio</a>
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="bg-image-side" style="background-image: url('{% static 'desplazamiento.jpeg' %}');">
+                <div class="overlay-blue">
+                    <img src="{% static 'Malaga_CF.png' %}" width="80" class="mb-4">
+                    <h1 class="display-4 fw-bold">Bienvenido a casa, Malaguista.</h1>
+                    <p class="lead text-light opacity-75">
+                        Regístrate para gestionar tus viajes, asegurar tu plaza en el autobús y acompañar al equipo en cada batalla.
+                    </p>
+                    <div class="mt-4">
+                        <small class="fw-bold text-uppercase letter-spacing-2">#MemoriaCompromisoFe</small>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-6 login-section">
+            <div class="login-wrap">
+                
+                <div class="text-center mb-5">
+                    <img src="{% static 'Malaga_CF.png' %}" width="60" class="d-lg-none mb-3">
+                    <h2 class="fw-bold text-mcf-blue">Crear Cuenta</h2>
+                    <p class="text-muted">Rellena tus datos para empezar a viajar</p>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                    <div class="form-group mb-3">
+                        <label>
+                            {% if field.name == 'username' %} <i class="bi bi-person-fill me-1"></i> Nombre de Usuario
+                            {% elif 'password' in field.name %} <i class="bi bi-lock-fill me-1"></i> Contraseña
+                            {% else %} {{ field.label }}
+                            {% endif %}
+                        </label>
+                        
+                        {{ field }}
+                        
+                        {% if field.help_text %}
+                            <small class="helptext">{{ field.help_text }}</small>
+                        {% endif %}
+                        
+                        {% for error in field.errors %}
+                            <div class="text-danger small fw-bold mt-1">
+                                <i class="bi bi-exclamation-circle"></i> {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-malaga w-100 py-3 mt-4 rounded-pill fw-bold shadow-sm">
+                        REGISTRARME AHORA ➜
+                    </button>
+                </form>
+
+                <div class="text-center mt-5">
+                    <p class="text-muted small">¿Ya tienes cuenta?</p>
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary rounded-pill px-4 fw-bold">
+                        Iniciar Sesión
+                    </a>
+                    <div class="mt-3">
+                        <a href="{% url 'inicio' %}" class="text-decoration-none text-muted small">← Volver al inicio</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
     </div>
 </div>
+
+<script>
+    // Script para modo oscuro
+    if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+    }
+</script>
 
 </body>
 </html>

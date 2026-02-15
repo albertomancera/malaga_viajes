@@ -1,31 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
 
+/* =========================================
+   1. VARIABLES Y TEMA (Colores Globales)
+   ========================================= */
 :root {
+    /* Colores base del Málaga */
     --mcf-blue: #002B5C;
-    --mcf-light: #6CABDD;
+    --mcf-light: #6CABDD; 
+    
+    /* Colores Modo Claro */
     --bg-gray: #f4f6f9;
     --card-bg: #ffffff;
-    --text-main: #002B5C;
+    --text-main: #002B5C; 
     --text-muted: #6c757d;
     --nav-bg: #002B5C;
 }
 
+/* MODO OSCURO MALAGUISTA */
 [data-theme="dark"] {
-    --bg-gray: #0a192f;
-    --card-bg: #112240;
-    --text-main: #e6f1ff;
-    --text-muted: #8892b0;
-    --nav-bg: #011627;
+    --bg-gray: #0a1020; 
+    --card-bg: #142035; 
+    --text-main: #f0f4f8; 
+    --text-muted: #8ba0c0; 
+    --nav-bg: #002B5C;    
 }
 
+/* =========================================
+   2. ESTILOS BASE Y GENERALES
+   ========================================= */
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-gray);
     color: var(--text-main);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* --- PÁGINAS DE LOGIN / REGISTRO --- */
+/* Páginas de Autenticación (Fondo degradado si no se usa split) */
 body.auth-page {
     background: linear-gradient(135deg, #002B5C 0%, #6CABDD 100%);
     min-height: 100vh;
@@ -34,7 +44,7 @@ body.auth-page {
     justify-content: center;
 }
 
-/* --- PÁGINA CENTRADA (CANCELACIÓN) --- */
+/* Página Centrada (Cancelación/Éxito) */
 body.centered-page {
     height: 100vh;
     display: flex;
@@ -43,100 +53,451 @@ body.centered-page {
     margin: 0;
 }
 
-/* --- NAVBAR --- */
+/* =========================================
+   3. NAVBAR (Barra de Navegación)
+   ========================================= */
 .navbar-mcf {
     background-color: var(--nav-bg);
     padding: 0.8rem 0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-.nav-link { font-weight: 600; color: rgba(255,255,255,0.8) !important; margin: 0 10px; }
-.nav-link:hover { color: var(--mcf-light) !important; }
 
-/* --- INICIO --- */
+.nav-link {
+    font-weight: 600;
+    color: rgba(255,255,255,0.8) !important;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--mcf-light) !important;
+}
+
+/* =========================================
+   4. COMPONENTES: TARJETAS DE VIAJE
+   ========================================= */
 .top-notice {
     background-color: var(--mcf-light);
-    color: white; text-align: center; padding: 10px;
-    font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
+
 .white-card {
-    background: var(--card-bg); border-radius: 20px; padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px;
-    border: 1px solid rgba(0,0,0,0.05); transition: transform 0.3s;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
 }
-.white-card:hover { transform: translateY(-5px); }
-.match-time { font-size: 2.6rem; font-weight: 900; color: var(--text-main); }
-.progress { height: 10px; border-radius: 50px; background-color: #e9ecef; margin: 20px 0 10px 0; }
-.progress-bar { background-color: var(--mcf-light) !important; }
-.theme-switch { position: relative; display: inline-block; width: 45px; height: 22px; margin-left: 10px; }
-.theme-switch input { opacity: 0; width: 0; height: 0; }
-.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
-.slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
-input:checked + .slider { background-color: var(--mcf-light); }
-input:checked + .slider:before { transform: translateX(23px); }
+
+.white-card:hover {
+    transform: translateY(-5px);
+}
+
+.match-time {
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+/* Barras de Progreso */
+.progress {
+    height: 10px;
+    border-radius: 50px;
+    background-color: #e9ecef;
+    margin: 20px 0 10px 0;
+}
+
+.progress-bar {
+    background-color: var(--mcf-light) !important;
+}
+
+/* =========================================
+   5. COMPONENTES: RESEÑAS (Reviews)
+   ========================================= */
+.review-card {
+    background-color: var(--card-bg); 
+    border-radius: 25px !important;
+    border: none;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.review-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 43, 92, 0.15);
+}
+
+.review-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-main); 
+}
+
+/* =========================================
+   6. COMPONENTES: TICKETS (Mis Reservas)
+   ========================================= */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-header h2 {
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.ticket-card {
+    background: var(--card-bg); 
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 43, 92, 0.08);
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.ticket-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 43, 92, 0.12);
+}
+
+.ticket-header {
+    background: var(--mcf-blue);
+    color: white;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+}
+
+.ticket-body {
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    color: var(--text-main); 
+}
+
+.match-section {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    border-right: 2px dashed #eee;
+    padding-right: 20px;
+    min-width: 280px;
+}
+
+.teams-display {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: 20px;
+}
+
+.team-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.vs-badge {
+    font-weight: 900;
+    color: var(--text-muted); 
+    font-size: 0.9rem;
+}
+
+.match-details h4 {
+    margin: 0;
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.match-date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.passenger-section {
+    flex: 1;
+    padding-left: 10px;
+    min-width: 200px;
+}
+
+.label-ticket {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.value-ticket {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.action-section {
+    text-align: right;
+}
+
+.btn-cancel {
+    color: #dc3545;
+    background: rgba(220, 53, 69, 0.1);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s;
+    display: inline-block;
+}
+
+.btn-cancel:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* =========================================
+   7. FORMULARIOS (Inscripción y Login)
+   ========================================= */
+.ticket-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: var(--card-bg); 
+    border: 2px solid #002B5C;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.ticket-header-form {
+    background: linear-gradient(135deg, #002B5C 0%, #6CABDD 100%);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.ticket-body-form {
+    padding: 40px;
+    border-left: 15px solid #6CABDD;
+    color: var(--text-main); 
+}
+
+.form-mcf-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-main); 
+    text-transform: uppercase;
+}
+
+/* Botones Generales */
+.btn-malaga {
+    background-color: #002B5C;
+    color: white;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn-malaga:hover {
+    background-color: #6CABDD;
+    color: white;
+}
+
+.btn-mcf-ticket {
+    background-color: #002B5C;
+    color: white;
+    font-weight: 900;
+    letter-spacing: 1px;
+    border-radius: 0;
+    padding: 15px;
+    transition: 0.3s;
+}
+
+.btn-mcf-ticket:hover {
+    background-color: #6CABDD;
+    color: white;
+}
+
+.form-control {
+    border-radius: 10px;
+    padding: 12px;
+    background-color: var(--bg-gray); 
+    color: var(--text-main); 
+    border: 1px solid var(--text-muted); 
+}
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+/* =========================================
+   8. UTILIDADES: MODO OSCURO (Switch)
+   ========================================= */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 22px;
+    margin-left: 10px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--mcf-light);
+}
+
+input:checked + .slider:before {
+    transform: translateX(23px);
+}
+
+/* =========================================
+   9. GALERÍA Y MULTIMEDIA
+   ========================================= */
+.gallery-item {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* Reproductor Flotante */
+.audio-player {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: var(--card-bg); 
+    padding: 15px;
+    border-radius: 50px;
+    border: 2px solid #002B5C;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-main);
+}
+
+/* Animación del icono */
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.icon-spin { animation: spin 4s linear infinite; }
+
+.player-info { line-height: 1.2; }
+.player-title { font-weight: 700; color: var(--text-main); font-size: 0.9rem; } 
+.player-subtitle { font-size: 0.7rem; color: var(--text-muted); } 
+.player-audio { height: 30px; width: 150px; border-radius: 20px; }
+.player-close { background: none; border: none; font-weight: bold; color: var(--text-muted); cursor: pointer; } 
+
+/* =========================================
+   10. CANCELACIÓN Y UTILIDADES VARIAS
+   ========================================= */
+.cancel-card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 43, 92, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    border: 1px solid rgba(0,0,0,0.05);
+    animation: fadeIn 0.5s ease-out;
+    color: var(--text-main);
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.icon-circle {
+    width: 80px; height: 80px;
+    background-color: #f8d7da;
+    color: #dc3545;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 25px auto;
+}
+
+.highlight-dest { color: var(--mcf-blue); font-weight: 700; }
+
+.btn-action {
+    display: block; width: 100%;
+    padding: 12px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.2s;
+    margin-bottom: 10px;
+}
+
+.btn-blue { background-color: var(--mcf-blue); color: white; }
+.btn-blue:hover { background-color: #0041a5; color: white; transform: scale(1.02); }
+.btn-outline { background-color: transparent; color: var(--text-muted); border: 1px solid var(--text-muted); }
+.btn-outline:hover { color: var(--mcf-blue); background-color: #f0f2f5; border-color: var(--mcf-blue); }
+.text-mcf-blue { color: var(--mcf-blue) !important; }
+.mw-800 { max-width: 800px; }
+.fs-icon { font-size: 1.2rem; }
+
+/* Acordeón */
 .accordion-item { background-color: var(--card-bg); border: none; margin-bottom: 10px; border-radius: 15px !important; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
 .accordion-button { background-color: var(--card-bg); color: var(--text-main); font-weight: 700; border: none; }
 .accordion-button:not(.collapsed) { background-color: var(--card-bg); color: var(--mcf-light); box-shadow: none; }
 .accordion-body { color: var(--text-muted); background-color: var(--card-bg); }
 .btn-disabled { background-color: #bdc3c7 !important; border: none !important; cursor: not-allowed; }
 
-/* Estilo PROFESIONAL para las tarjetas de reseña */
-.review-card {
-    background-color: #ffffff;      /* Fondo blanco puro */
-    border-radius: 25px !important; /* Bordes extra redondeados */
-    border: none;                   /* Sin borde duro */
-    /* Sombra suave y moderna */
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08); 
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animación con un pequeño "rebote" */
-}
-
-/* Efecto "FLOTANTE" al pasar el ratón */
-.review-card:hover {
-    transform: translateY(-12px) scale(1.02); /* Se levanta y agranda ligeramente */
-    /* La sombra se hace más grande y azulada, a juego con el Málaga */
-    box-shadow: 0 20px 40px rgba(0, 43, 92, 0.15); 
-}
-
-/* Detalle extra para el texto de la reseña */
-.review-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #555;
-}
-
-/* --- MIS RESERVAS (TICKETS) --- */
-.page-header { text-align: center; margin-bottom: 3rem; }
-.page-header h2 { font-weight: 800; text-transform: uppercase; }
-.ticket-card {
-    background: white; border-radius: 16px; overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 43, 92, 0.08); margin-bottom: 25px;
-    display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,0.05);
-    transition: transform 0.2s;
-}
-.ticket-card:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0, 43, 92, 0.12); }
-.ticket-header {
-    background: var(--mcf-blue); color: white; padding: 12px 25px;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.8rem; letter-spacing: 1px; font-weight: 600;
-    background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent);
-    background-size: 20px 20px;
-}
-.ticket-body { padding: 25px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
-.match-section { flex: 2; display: flex; align-items: center; border-right: 2px dashed #eee; padding-right: 20px; min-width: 280px; }
-.teams-display { display: flex; align-items: center; gap: 15px; margin-right: 20px; }
-.team-logo { width: 50px; height: 50px; object-fit: contain; }
-.vs-badge { font-weight: 900; color: #ddd; font-size: 0.9rem; }
-.match-details h4 { margin: 0; font-weight: 800; font-size: 1.2rem; text-transform: uppercase; }
-.match-date { color: #666; font-size: 0.9rem; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
-.passenger-section { flex: 1; padding-left: 10px; min-width: 200px; }
-.label-ticket { display: block; font-size: 0.7rem; text-transform: uppercase; color: #999; font-weight: 700; margin-bottom: 2px; }
-.value-ticket { font-size: 1rem; font-weight: 700; color: #333; display: block; margin-bottom: 10px; }
-.action-section { text-align: right; }
-.btn-cancel {
-    color: #dc3545; background: rgba(220, 53, 69, 0.1); border: none;
-    padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 700;
-    text-decoration: none; transition: 0.2s; display: inline-block;
-}
-.btn-cancel:hover { background: #dc3545; color: white; }
+/* Responsive */
 @media (max-width: 768px) {
     .ticket-body { flex-direction: column; align-items: flex-start; }
     .match-section { border-right: none; border-bottom: 2px dashed #eee; padding-bottom: 20px; width: 100%; }
@@ -144,72 +505,147 @@ input:checked + .slider:before { transform: translateX(23px); }
     .btn-cancel { width: 100%; }
 }
 
-/* --- FORMULARIO INSCRIPCIÓN --- */
-.ticket-container {
-    max-width: 600px; margin: 50px auto; background: #fff;
-    border: 2px solid #002B5C; position: relative;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-}
-.ticket-header-form {
-    background: linear-gradient(135deg, #002B5C 0%, #6CABDD 100%);
-    color: white; padding: 25px; text-align: center;
-}
-.ticket-body-form { padding: 40px; border-left: 15px solid #6CABDD; }
-.form-mcf-label { font-size: 0.85rem; font-weight: 700; color: #002B5C; text-transform: uppercase; }
-.btn-mcf-ticket { background-color: #002B5C; color: white; font-weight: 900; letter-spacing: 1px; border-radius: 0; padding: 15px; transition: 0.3s; }
-.btn-mcf-ticket:hover { background-color: #6CABDD; color: white; }
+/* =========================================
+   11. NUEVO FORMULARIO VISUAL (Tarjeta de Embarque)
+   ========================================= */
 
-/* --- BOTONES Y FORMULARIOS GENERALES --- */
-.form-control { border-radius: 10px; padding: 12px; }
-.btn-malaga { background-color: #002B5C; color: white; transition: 0.3s; font-weight: bold; }
-.btn-malaga:hover { background-color: #6CABDD; color: white; }
-
-/* --- RESERVA CANCELADA --- */
-.cancel-card {
-    background: white; padding: 40px; border-radius: 20px;
-    box-shadow: 0 15px 50px rgba(0, 43, 92, 0.1); text-align: center;
-    max-width: 500px; width: 90%; border: 1px solid rgba(0,0,0,0.05);
-    animation: fadeIn 0.5s ease-out;
-}
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.icon-circle {
-    width: 80px; height: 80px; background-color: #f8d7da; color: #dc3545;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 2.5rem; margin: 0 auto 25px auto;
-}
-.highlight-dest { color: var(--mcf-blue); font-weight: 700; }
-.btn-action {
-    display: block; width: 100%; padding: 12px; border-radius: 50px;
-    text-decoration: none; font-weight: 700; transition: 0.2s; margin-bottom: 10px;
-}
-.btn-blue { background-color: var(--mcf-blue); color: white; }
-.btn-blue:hover { background-color: #0041a5; color: white; transform: scale(1.02); }
-.btn-outline { background-color: transparent; color: #888; border: 1px solid transparent; }
-.btn-outline:hover { color: var(--mcf-blue); background-color: #f0f2f5; }
-<<<<<<< HEAD
-=======
-
-/* SECCIÓN GALERÍA */
-.gallery-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px 0;
+/* Cabecera con imagen de fondo */
+.trip-hero-header {
+    position: relative;
+    height: 200px;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
 }
 
-.gallery-item {
-    width: 100%;
-    height: 250px; /* Tamaño fijo para todas */
-    object-fit: cover; /* Recorta la imagen para que rellene el espacio sin estirarse */
+/* Capa azul semitransparente encima de la imagen */
+.trip-hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 43, 92, 0.7), rgba(0, 43, 92, 0.9));
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Barra resumen tipo ticket (Fecha/Precio) */
+.ticket-summary-bar {
+    background-color: var(--bg-gray); 
+    color: var(--text-main);
+    padding: 15px;
+    border-bottom: 2px dashed var(--text-muted);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 600;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.summary-price {
+    font-size: 1.5rem;
+    color: var(--mcf-blue);
+    font-weight: 900;
+}
+[data-theme="dark"] .summary-price {
+    color: var(--mcf-light);
+}
+
+/* Estilos para los inputs con iconos */
+.input-group-text {
+    background-color: var(--bg-gray);
+    border-color: var(--text-muted);
+    color: var(--mcf-blue);
+}
+[data-theme="dark"] .input-group-text {
+    color: var(--mcf-light);
+    border-color: #444;
+}
+
+/* Ajuste del contenedor principal del formulario */
+.booking-card {
+    border: none;
     border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
-    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
-/* Animación al pasar el ratón */
-.gallery-item:hover {
-    transform: scale(1.05); /* Se agranda un poco */
-    filter: brightness(1.1); /* Brilla un poco más */
+/* =========================================
+   12. ESTILOS REGISTRO Y LOGIN (SPLIT)
+   ========================================= */
+
+/* La imagen lateral que ocupa toda la altura */
+.bg-image-side {
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    position: relative;
 }
->>>>>>> 5e6ae39a1c84cff8d2f6e70b04f2bd57830b95d5
+
+/* Capa azul encima de la foto para que el texto se lea bien */
+.overlay-blue {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 43, 92, 0.6), rgba(0, 43, 92, 0.9));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    color: white;
+}
+
+/* El contenedor del formulario */
+.login-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--card-bg); 
+    transition: background-color 0.3s;
+}
+
+.login-wrap {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+/* Estilo para los inputs del formulario automático de Django */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--text-muted);
+    background-color: var(--bg-gray);
+    color: var(--text-main);
+    margin-bottom: 15px;
+}
+.form-group label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    margin-bottom: 5px;
+    display: block;
+    text-transform: uppercase;
+}
+.form-group ul { /* Errores */
+    list-style: none;
+    padding: 0;
+    color: #dc3545;
+    font-size: 0.85rem;
+}
+.helptext { /* Texto de ayuda de contraseña */
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 10px;
+}

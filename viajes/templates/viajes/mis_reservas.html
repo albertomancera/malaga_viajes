@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <title>Mis Reservas | Málaga CF</title>
@@ -14,7 +14,7 @@
     <div class="container">
         <a class="navbar-brand fw-bold" href="{% url 'inicio' %}">
             <img src="{% static 'Malaga_CF.png' %}" width="30" class="me-2 align-text-top">
-            MÁLAGA CF | TRAVEL
+            MÁLAGA CF | VIAJE
         </a>
         <div class="ms-auto">
             <span class="text-white small me-3 opacity-75 d-none d-md-inline">Hola, {{ user.username }}</span>
@@ -41,14 +41,10 @@
                 </div>
 
                 <div class="ticket-body">
-                    
                     <div class="match-section">
                         <div class="teams-display">
-                            <img src="{% get_static_prefix %}{{ reserva.viaje.destino }}.png" 
-                                 class="team-logo" >
-                            
+                            <img src="{% get_static_prefix %}{{ reserva.viaje.destino }}.png" class="team-logo" >
                             <span class="vs-badge">VS</span>
-                            
                             <img src="{% static 'Malaga_CF.png' %}" class="team-logo">
                         </div>
                         
@@ -71,25 +67,29 @@
 
                     <div class="action-section">
                         <span class="d-block mb-2 text-muted small">Registrado: {{ reserva.fecha_registro|date:"d/m/Y" }}</span>
-                       <a href="{% url 'cancelar_reserva' reserva.id %}" class="btn-cancel">
+                        <a href="{% url 'cancelar_reserva' reserva.id %}" class="btn-cancel">
                             ✕ Anular Plaza
                         </a>
                     </div>
-
                 </div>
             </div>
             {% empty %}
             <div class="text-center py-5">
-                
                 <h4 class="fw-bold text-muted">Aún no tienes reservas activas</h4>
                 <p class="mb-4">¡Anímate a acompañar al equipo en el próximo partido!</p>
-                <a href="{% url 'inicio' %}" class="btn btn-primary rounded-pill px-4" style="background-color: var(--mcf-blue);">Ver Próximos Viajes</a>
+                <a href="{% url 'inicio' %}" class="btn btn-malaga rounded-pill px-4">Ver Próximos Viajes</a>
             </div>
             {% endfor %}
 
         </div>
     </div>
 </div>
+
+<script>
+    if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+    }
+</script>
 
 </body>
 </html>

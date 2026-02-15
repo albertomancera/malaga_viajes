@@ -3,23 +3,38 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.http import HttpResponse
+from .forms import ResenaForm
 import openpyxl
-from .models import Viaje, Inscripcion
+from .models import Viaje, Inscripcion, Resena
 
 # ==============================================================================
 # SECCIÓN 1: PÁGINAS PÚBLICAS
 # ==============================================================================
 
 def inicio(request):
+    # 1. Lógica de VIAJES (Filtrar por fecha, ordenar y limitar a 3)
     hoy = timezone.now()
     viajes_lista = Viaje.objects.filter(fecha_partido__gte=hoy).order_by('fecha_partido')[:3]
     
+    # Calcular plazas y barras de progreso para esos 3 viajes
     for v in viajes_lista:
         v.plazas_libres = v.plazas_totales - v.inscripciones.count()
-        # Calculamos el porcentaje para la barra (opcional)
-        v.porcentaje_llenado = (v.inscripciones.count() / v.plazas_totales) * 100
+        if v.plazas_totales > 0:
+            v.porcentaje_llenado = (v.inscripciones.count() / v.plazas_totales) * 100
+        else:
+            v.porcentaje_llenado = 0
 
-    return render(request, 'viajes/inicio.html', {'viajes': viajes_lista})
+    # 2. Lógica de RESEÑAS (Las 3 últimas y el formulario)
+    resenas = Resena.objects.all().order_by('-fecha')[:3]
+    form_resena = ResenaForm()
+
+    # 3. Enviar todo a la plantilla
+    context = {
+        'viajes': viajes_lista,    # Lista filtrada y calculada
+        'resenas': resenas,        # Reseñas
+        'form_resena': form_resena # Formulario para escribir
+    }
+    return render(request, 'viajes/inicio.html', context)
 
 # ==============================================================================
 # SECCIÓN 2: GESTIÓN DE CUENTAS (Registro)
@@ -139,3 +154,12 @@ def exportar_pasajeros_excel(request, viaje_id):
 
     return response
 
+def agregar_resena(request):
+    if request.method == 'POST':
+        form = ResenaForm(request.POST)
+        if form.is_valid():
+            resena = form.save(commit=False)
+            resena.usuario = request.user # Asigna el usuario conectado automáticamete
+            resena.save()
+            return redirect('inicio')
+    return redirect('inicio')

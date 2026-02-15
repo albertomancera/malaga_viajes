@@ -3,17 +3,34 @@
 <html lang="es" data-theme="light">
   <head>
     <meta charset="UTF-8" />
-    <title>Málaga CF | Travel</title>
+    <title>Málaga CF | Viaje</title>
     <link rel="icon" type="image/png" href="{% static 'Malaga_CF.png' %}" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    
+    <link rel="stylesheet" href="{% static 'style.css' %}?v=1.0" />
+    
+    <style>
+    /* Mantenemos esto aquí por seguridad para la galería */
+    .gallery-item {
+        width: 100%;           /* Ocupa el ancho de su columna */
+        height: 250px;         /* Altura fija para todas */
+        object-fit: cover;     /* Recorta la foto para que no se deforme */
+        border-radius: 20px;   /* Bordes redondeados */
+        transition: transform 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .gallery-item:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+    </style>
   </head>
   <body>
     <div class="top-notice">
-      ⚠️ ¡Buses casi llenos! Asegura tu plaza y ruge con nosotros fuera de La
-      Rosaleda.
+      ⚠️ ¡Buses casi llenos! Asegura tu plaza y ruge con nosotros fuera de La Rosaleda.
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-mcf sticky-top">
@@ -40,6 +57,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#galeria">Galería</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#resena">Reseñas</a>
             </li>
             <li class="nav-item">
               <a
@@ -77,8 +97,8 @@
                   src="{% get_static_prefix %}{{ viaje.destino }}.png"
                   width="60"
                   height="60"
-                  style="object-fit: contain" />
-                <div class="fw-bold mt-2 small">{{ viaje.destino }}</div>
+                  style="object-fit: contain" 
+                  > <div class="fw-bold mt-2 small">{{ viaje.destino }}</div>
               </div>
               <div class="text-center">
                 <div class="match-time">
@@ -99,24 +119,24 @@
             </div>
 
             <div class="plazas-container mb-4">
-  <div class="d-flex justify-content-between small fw-bold mb-1">
-        <span>Grado de Ocupación Malaguista</span>
-        <span class="{% if viaje.plazas_libres == 0 %}text-danger{% endif %}">
-            {% if viaje.plazas_libres == 0 %}
-                ¡DESEMBARCO CONFIRMADO! 0 plazas
-            {% elif viaje.plazas_libres < 10 %}
-                ¡CORRE! Solo {{ viaje.plazas_libres }} locos por estos colores
-            {% else %}
-                {{ viaje.plazas_libres }} asientos disponibles
-            {% endif %}
-        </span>
-    </div>
-   
+              <div class="d-flex justify-content-between small fw-bold mb-1">
+                <span>Grado de Ocupación Malaguista</span>
+                <span class="{% if viaje.plazas_libres == 0 %}text-danger{% endif %}">
+                    {% if viaje.plazas_libres == 0 %}
+                        ¡DESEMBARCO CONFIRMADO! 0 plazas
+                    {% elif viaje.plazas_libres < 10 %}
+                        ¡CORRE! Solo {{ viaje.plazas_libres }} plazas
+                    {% else %}
+                        {{ viaje.plazas_libres }} asientos disponibles
+                    {% endif %}
+                </span>
+              </div>
             </div>
-              <div class="previa-info small text-start p-3 mb-4">
-                    <div class="mb-1">📍 <strong>Salida:</strong> Explanada de La Rosaleda</div>
-                    <div>🧣 <strong>Imprescindible:</strong> Bufanda blanquiazul</div>
-                </div>
+
+            <div class="previa-info small text-start p-3 mb-4">
+                <div class="mb-1">📍 <strong>Salida:</strong> Explanada de La Rosaleda</div>
+                <div>🧣 <strong>Imprescindible:</strong> Bufanda blanquiazul</div>
+            </div>
 
             <div class="d-flex gap-2 justify-content-center pt-3 border-top">
               <span class="btn btn-light rounded-pill fw-bold px-3"
@@ -192,37 +212,114 @@
         </div>
       </div>
 
-      <div id="galeria" class="row mt-5">
-        <div class="col-12 text-center mb-4">
-          <h2 class="fw-bold">PORQUE NUNCA JUGARÉIS SOLOS</h2>
-        </div>
-        <div class="col-md-4 mb-4">
-          <img
-            src="{% static 'desplazamiento.jpeg' %}"
-            class="img-fluid rounded-4 shadow-sm"
-            alt="Fans" />
-        </div>
-        <div class="col-md-4 mb-4">
-          <img
-            src="{% static 'desplazamiento1.jpeg' %}"
-            class="img-fluid rounded-4 shadow-sm"
-            style="filter: grayscale(0.5)"
-            alt="Estadio" />
+      <div id="galeria" class="py-5 container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" style="color: var(--mcf-blue);">📸 PORQUE NUNCA JUGARÉIS SOLOS</h2>
+            <p class="text-muted">NUESTROS ÚLTIMOS DESPLAZAMIENTOS</p>
         </div>
 
-        <div class="col-md-4 mb-4">
-          <img
-            src="{% static 'desplazamiento2.jpg' %}"
-            class="img-fluid rounded-4 shadow-sm"
-            style="filter: grayscale(0.5)"
-            alt="Estadio" />
+        <div class="row g-4">
+            <div class="col-md-4">
+                <img src="{% static 'desplazamiento.jpeg' %}" class="gallery-item" alt="Afición 1">
+            </div>
+            <div class="col-md-4">
+                <img src="{% static 'desplazamiento1.jpeg' %}" class="gallery-item" alt="Afición 2">
+            </div>
+            <div class="col-md-4">
+                <img src="{% static 'desplazamiento2.jpg' %}" class="gallery-item" alt="Afición 3">
+            </div>
         </div>
       </div>
+    </div>
+
+    <div id="resena" class="py-5 mt-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-primary">🗣️ LA VOZ DE LA AFICIÓN</h2>
+                
+                {% if user.is_authenticated %}
+                    <button class="btn btn-primary rounded-pill px-4 mt-3" data-bs-toggle="modal" data-bs-target="#resenaModal">
+                        ✍️ Escribir mi reseña
+                    </button>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary rounded-pill px-4 mt-3">Inicia sesión para opinar</a>
+                {% endif %}
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                {% for resena in resenas %}
+                <div class="col-md-4">
+                    <div class="card review-card p-4 h-100 text-center">
+                        <div class="card-body">
+                            <div class="mb-3 text-warning fs-4">
+                                {% if resena.puntuacion == 5 %}⭐⭐⭐⭐⭐
+                                {% elif resena.puntuacion == 4 %}⭐⭐⭐⭐
+                                {% elif resena.puntuacion == 3 %}⭐⭐⭐
+                                {% else %}⭐{% endif %}
+                            </div>
+                            <p class="card-text fst-italic review-text">"{{ resena.texto }}"</p>
+                            <div class="mt-4 fw-bold text-primary">- {{ resena.usuario.username }}</div>
+                            <small class="text-muted">{{ resena.fecha|date:"d M Y" }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                    <p class="text-center">Aún no hay reseñas. ¡Sé el primero!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="resenaModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tu opinión cuenta 💙</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{% url 'agregar_resena' %}" method="POST">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        <label>Puntuación (1-5):</label>
+                        {{ form_resena.puntuacion }}
+                        <label class="mt-3">Tu comentario:</label>
+                        {{ form_resena.texto }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary w-100">Publicar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <footer class="text-center py-5 mt-5 text-muted small border-top">
       © 2026 Málaga CF Viajes Oficiales | Orgullo Malaguista
     </footer>
+
+    <div id="audio-player" class="shadow-lg" style="position: fixed; bottom: 20px; left: 20px; background: white; padding: 15px; border-radius: 50px; border: 2px solid #002B5C; z-index: 9999; display: flex; align-items: center; gap: 15px;">
+        
+        <div class="icon-spin" style="display: flex; align-items: center;">
+             <img src="{% static 'spotify.png' %}" alt="Spotify" width="35" height="35" style="border-radius: 50%;">
+        </div>
+        
+        <div style="line-height: 1.2;">
+            <div style="font-weight: 700; color: #002B5C; font-size: 0.9rem;">Cánticos</div>
+            <div style="font-size: 0.7rem; color: #666;">Málaga CF</div>
+        </div>
+
+        <audio controls style="height: 30px; width: 150px; border-radius: 20px;">
+            <source src="{% static 'himno.mp3' %}" type="audio/mpeg">
+            Tu navegador no soporta audio.
+        </audio>
+
+        <button onclick="document.getElementById('audio-player').style.display='none'" style="background: none; border: none; font-weight: bold; color: #999; cursor: pointer;">✕</button>
+    </div>
+
+    <style>
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .icon-spin { animation: spin 4s linear infinite; }
+    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
